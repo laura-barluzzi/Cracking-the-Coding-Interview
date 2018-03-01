@@ -1,44 +1,38 @@
 class Node:
-    def __init__(self, value=None, next=None):
-      self.value = value
-      self.next = next
-    
-    def __str__(self):
-      return str(self.value)
+	def __init__(self, value=None, next=None):
+		self.value = value
+		self.next = next
 
-node1 = Node("1")
-node2 = Node("2")
-node3 = Node("3")
-node4 = Node("4")
-node5 = Node("5")
-node1.next = node2
-node2.next = node3
-node3.next = node4
-node4.next = node5
+	def __str__(self):
+		return str(self.value)
+
 
 class Solution:
-    def __init__(self):
-        self.linked_list = {}
-    
-    def get_node_in_pos(self, node, pos, i=1):
-        """
-        >>> Solution().get_node_in_pos(node1, 3)
-        3
-        
-        >>> Solution().get_node_in_pos(node1, 2)
-        4
-        """
-        self.linked_list[i] = node
-        
-        if node.next is not None:
-            self.get_node_in_pos(node.next, pos, i+1)
-        else:
-            length = len(self.linked_list)
-            key = length - pos + 1
-            node_in_pos = self.linked_list[key]
-            print(node_in_pos.value)
+	def get_node_in_pos(self, head, n):
+		"""
+		>>> linked_list = Node(1, Node(2, Node(3, Node(4, Node(5)))))
+		>>> Solution().get_node_in_pos(linked_list, 3)
+		3
+
+		>>> Solution().get_node_in_pos(linked_list, 2)
+		4
+		"""
+
+		nth_last_node = head
+
+		for _ in range(n):
+			head = head.next
+
+			if head is None:
+				raise ValueError
+
+		while head is not None:
+			head = head.next
+			nth_last_node = nth_last_node.next
+
+		return nth_last_node.value
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod(verbose=True)
+	import doctest
+	doctest.testmod(verbose=True)
